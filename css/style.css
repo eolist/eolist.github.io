@@ -171,7 +171,7 @@ article.page .icon {
   display: none;
 }
 article.post .icon:before {
-  content: '\f073';
+  content: '\f08d';
 }
 article.photo .icon:before {
   content: '\f030';
