@@ -35,7 +35,7 @@
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -51,6 +51,8 @@
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -86,7 +88,7 @@
 
    <span style="line-height:35px; height:35px; ">  </span>
 
-   <font style="color: #999;"> words: 694  &nbsp;&nbsp; views: <span id="busuanzi_value_page_pv"></span> &nbsp;&nbsp; time: 2min</font>
+   <font style="color: #999;"> words: 712  &nbsp;&nbsp; views: <span id="busuanzi_value_page_pv"></span> &nbsp;&nbsp; time: 2min</font>
    
    
   
@@ -107,13 +109,13 @@
       
     <div class="e-content entry" itemprop="articleBody">
       
-        <p>环境：win10_x64<br>版本：mysql-5.7.44<br><span id="more"></span></p>
-<p>下载安装包：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql">https://dev.mysql.com/downloads/mysql</a></p>
+        <p>环境：win10_x64<br>版本：mysql-5.7.44<br><a id="more"></a></p>
+<p>下载安装包：<a href="https://dev.mysql.com/downloads/mysql" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql</a></p>
 <p><img src="/img/20170903/20170903.0.jpg" alt=""> </p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>这里以下载zip包的方式进行安装，解压之后添加数据目录data，以及配置文件my.ini </p>
 <p><img src="/img/20170903/20170903.1.jpg" alt=""> </p>
 <p>配置文件中的内容：</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port = 3306</span><br><span class="line"> </span><br><span class="line">[mysqld]</span><br><span class="line">port = 3306</span><br><span class="line">basedir=E:\mysql5.7.44</span><br><span class="line">datadir=basedir=E:\mysql5.7.44\data</span><br><span class="line">max_connections=100</span><br><span class="line">character-set-server=utf8</span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line">#从 5.6开始，timestamp 的默认行为已经是deprecated了</span><br><span class="line">explicit_defaults_for_timestamp=true</span><br><span class="line"> </span><br><span class="line">[mysql]</span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port &#x3D; 3306</span><br><span class="line"> </span><br><span class="line">[mysqld]</span><br><span class="line">port &#x3D; 3306</span><br><span class="line">basedir&#x3D;E:\mysql5.7.44</span><br><span class="line">datadir&#x3D;basedir&#x3D;E:\mysql5.7.44\data</span><br><span class="line">max_connections&#x3D;100</span><br><span class="line">character-set-server&#x3D;utf8</span><br><span class="line">default-storage-engine&#x3D;INNODB</span><br><span class="line">#从 5.6开始，timestamp 的默认行为已经是deprecated了</span><br><span class="line">explicit_defaults_for_timestamp&#x3D;true</span><br><span class="line"> </span><br><span class="line">[mysql]</span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set&#x3D;utf8</span><br></pre></td></tr></table></figure>
 <p>然后进入bin目录对数据库进行初始化：<code>mysqld --initialize --user=mysql --console</code>，这里记下初始化密码</p>
 <p><img src="/img/20170903/20170903.2.jpg" alt=""> </p>
 <p>接下来进行安装mysql服务，服务名这里设置为mysql5</p>
@@ -125,7 +127,7 @@
 <p>mysql默认只允许localhost进行登录</p>
 <p><img src="/img/20170903/20170903.6.jpg" alt=""> </p>
 <p>可以改为允许远程登录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set host = &#x27;%&#x27; where user = &#x27;root&#x27;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set host &#x3D; &#39;%&#39; where user &#x3D; &#39;root&#39;;</span><br></pre></td></tr></table></figure>
 <h3 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h3><h4 id="windows常用操作"><a href="#windows常用操作" class="headerlink" title="windows常用操作"></a>windows常用操作</h4><ul>
 <li>管理员运行cmd</li>
 </ul>
@@ -253,9 +255,9 @@
     </table>
 
 <p><strong>场景：</strong></p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">按名称结束指定进程（比如记事本）    taskkill /im notepad.exe</span><br><span class="line">按进程号PID结束指定进程            taskkill /pid 8080</span><br><span class="line">强制重启卡死进程（比如资源管理器）  taskkill /f /im explorer.exe &amp; start explorer.exe</span><br><span class="line">找到占用指定端口的进程（8080）      netstat -ano | find &quot;8080&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">按名称结束指定进程（比如记事本）    taskkill &#x2F;im notepad.exe</span><br><span class="line">按进程号PID结束指定进程            taskkill &#x2F;pid 8080</span><br><span class="line">强制重启卡死进程（比如资源管理器）  taskkill &#x2F;f &#x2F;im explorer.exe &amp; start explorer.exe</span><br><span class="line">找到占用指定端口的进程（8080）      netstat -ano | find &quot;8080&quot;</span><br></pre></td></tr></table></figure>
 <h4 id="mysql忘记密码"><a href="#mysql忘记密码" class="headerlink" title="mysql忘记密码"></a>mysql忘记密码</h4><p>修改配置文件my.cnf，在[mysqld]下面加上：skip-grant-tables，并重启mysql服务。然后<code>mysql -uroot -p</code>登录mysql，并执行</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update user set authentication_string=password(&#x27;root@123&#x27;) where user=&#x27;root&#x27;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update user set authentication_string&#x3D;password(&#39;root@123&#39;) where user&#x3D;&#39;root&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -339,14 +341,12 @@ $(document).ready(function(){
 <div class="widget catlog">
 <h3 class="title">Catlog</h3>
 <ul class="entry_catlog">
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-text">启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-text">登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FAQ"><span class="toc-text">FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="toc-text">windows常用操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mysql%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81"><span class="toc-text">mysql忘记密码</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动"><span class="toc-text">启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#登录"><span class="toc-text">登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FAQ"><span class="toc-text">FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows常用操作"><span class="toc-text">windows常用操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mysql忘记密码"><span class="toc-text">mysql忘记密码</span></a></li></ol></li></ol>
 </div>
 
 
 
 
-
-  
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -393,6 +393,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

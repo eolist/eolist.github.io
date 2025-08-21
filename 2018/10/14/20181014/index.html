@@ -42,7 +42,7 @@
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -58,6 +58,8 @@
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -130,7 +132,7 @@
 <p>在多处理器系统中，每个处理器都有自己的高速缓存，它们共享同一主内存。当多个处理器的运算任务都涉及同一块主内存区域时，将可能导致各自的缓存数据不一致，那么在将数据同步回主内存时应该以谁的缓存数据为准呢？</p>
 <p>为了解决一致性问题，就需要各个处理器访问缓存时遵循一些协议，在读写时要根据协议来进行操作。因此，<font color="#E51508">内存模型可以理解为：在特定的操作协议下，对特定的内存或高速缓存进行读写访问的过程抽象</font></p>
 <p>除了增加高速缓存外，<font color="#E51508">为了使处理器内部的运算单元能尽量被充分利用，处理器可能会对输入代码进行乱序执行优化</font>，处理器会在计算之后将乱序执行的结果重组，保证该结果与顺序执行的结果一致，但并不保证程序中的各个语句计算的先后顺序与输入的代码顺序一致。</p>
-<p>因此，如果存在一个计算任务依赖另外一个计算任务的中间结果，那么其顺序性并不能依靠代码的先后顺序来保证。与处理器的乱序执行优化器类似，Java虚拟机的即时编译器中也有类似的指令重排序优化。<br><span id="more"></span></p>
+<p>因此，如果存在一个计算任务依赖另外一个计算任务的中间结果，那么其顺序性并不能依靠代码的先后顺序来保证。与处理器的乱序执行优化器类似，Java虚拟机的即时编译器中也有类似的指令重排序优化。<br><a id="more"></a></p>
 <h3 id="1-Java内存模型"><a href="#1-Java内存模型" class="headerlink" title="1. Java内存模型"></a>1. Java内存模型</h3><p>Java虚拟机规范试图定义一种内存模型来屏蔽掉各种硬件和操作系统之间的内存访问差异，以实现让Java程序在各种平台下都能达到一致的内存访问效果</p>
 <p>因此，Java内存模型规定：所有的变量都存储在主内存中，每条线程有自己的工作内存，线程的工作内存中保存了被该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量。不同的线程之间也无法直接访问对方工作内存中的变量，线程间变量值的传递均需要通过主内存来完成。</p>
 <h3 id="2-内存间交互操作"><a href="#2-内存间交互操作" class="headerlink" title="2. 内存间交互操作"></a>2. 内存间交互操作</h3><p>对于一个变量如何从主内存拷贝到工作内存、如何从工作内存同步回主内存的问题，Java内存模型中定义了8种操作：</p>
@@ -207,7 +209,7 @@
 </ul>
 <p>另外，volatile变量还有另一个语义：<font color="#E51508">禁止指令重排序</font></p>
 <p>普通变量仅仅会保证在方法的执行过程中，所有依赖赋值结果的地方都能获得正确的结果，但不能保证变量赋值操作的顺序与程序代码中的执行顺序一致。因为在一个线程的方法执行过程中无法感知到这点，也就java内存模型中描述的：线程内表现为串行的语义。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Map configOptions;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span>[] configText;</span><br><span class="line"></span><br><span class="line"><span class="keyword">volatile</span> <span class="type">boolean</span> <span class="variable">initialized</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//假设以下代码在线程A中执行，读取配置信息，读取完后将initialized设置为true以通知其他线程配置可用。</span></span><br><span class="line">configOptions = <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line"></span><br><span class="line">configText = readConfigFile(fileName);</span><br><span class="line"></span><br><span class="line">processConfigOptions(configText,configOptions);</span><br><span class="line"></span><br><span class="line">initialized = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//假设以下代码在线程B中执行，等待initialized为true,代表线程A已经把配置信息初始化完成。</span></span><br><span class="line"><span class="keyword">while</span>(!initialized)&#123;</span><br><span class="line"></span><br><span class="line">   sleep();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">doSomethingWithConfig();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Map configOptions;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>[] configText;</span><br><span class="line"></span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">boolean</span> initialized = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//假设以下代码在线程A中执行，读取配置信息，读取完后将initialized设置为true以通知其他线程配置可用。</span></span><br><span class="line">configOptions = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">configText = readConfigFile(fileName);</span><br><span class="line"></span><br><span class="line">processConfigOptions(configText,configOptions);</span><br><span class="line"></span><br><span class="line">initialized = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//假设以下代码在线程B中执行，等待initialized为true,代表线程A已经把配置信息初始化完成。</span></span><br><span class="line"><span class="keyword">while</span>(!initialized)&#123;</span><br><span class="line"></span><br><span class="line">   sleep();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">doSomethingWithConfig();</span><br></pre></td></tr></table></figure>
 <p>如果定义<code>initialized</code>变量时没有使用volatile修饰，就可能由于指令重排序的优化，导致位于线程<code>A</code>中最后一句的代码<code>initialized=true</code>被提前执行，这样线程<code>B</code>中使用配置信息的代码就可能出现错误。</p>
 <p>volatile变量<font color="#E51508">相当于在操作指令中的一个内存屏障，在指令重排序时不能把后面的指令重排序到内存屏障之前的位置。</font>只有一个cpu访问内存时，并不需要内存屏障；但如果有多个cpu访问同一块内存，且其中有一个在观测另一个，就需要内存屏障来保证一致性了。</p>
 <p>由于虚拟机对锁实行的消除和优化，使得我们很难量化地认为volatile就会比synchronize快多少。volatile变量读操作的性能消耗与普通变量几乎没有什么差别，但是写操作则可能会慢一些，因为它需要在本地代码中插入许多内存屏障指令来保证处理器不发生乱序执行。不过在大多数场景下volatile的总开销仍然要比锁低。因此，我们在volatile与锁之间选择的唯一依据仅仅是volatile的语义能否满足使用场景的需求。</p>
@@ -330,14 +332,12 @@ $(document).ready(function(){
 <div class="widget catlog">
 <h3 class="title">Catlog</h3>
 <ul class="entry_catlog">
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-text">1. Java内存模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%86%85%E5%AD%98%E9%97%B4%E4%BA%A4%E4%BA%92%E6%93%8D%E4%BD%9C"><span class="toc-text">2. 内存间交互操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8E%9F%E5%AD%90%E6%80%A7%E3%80%81%E5%8F%AF%E8%A7%81%E6%80%A7%E3%80%81%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="toc-text">3. 原子性、可见性、有序性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%88%E8%A1%8C%E5%8F%91%E7%94%9F%E8%A7%84%E5%88%99%EF%BC%88happens-before%EF%BC%89"><span class="toc-text">4. 先行发生规则（happens-before）</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Java内存模型"><span class="toc-text">1. Java内存模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-内存间交互操作"><span class="toc-text">2. 内存间交互操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-原子性、可见性、有序性"><span class="toc-text">3. 原子性、可见性、有序性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-先行发生规则（happens-before）"><span class="toc-text">4. 先行发生规则（happens-before）</span></a></li></ol>
 </div>
 
 
 
 
-
-  
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -384,6 +384,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

@@ -33,7 +33,7 @@
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -49,6 +49,8 @@
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -140,7 +142,7 @@
         <p>Feign是Netflix发布的一款轻量级Rest客户端框架，提供了一种声明式的服务调用组件，通过Feign只需声明一个接口并通过注解进行简单的配置即可实现对Http接口的绑定。然后就可以像调用本地方法一样来调用远程服务，而完全感觉不到是在进行远程调用。</p>
 <p>Feign支持多种注解，比如Feign自带的注解以及JAX-RS注解，但遗憾的是Feign本身并不支持Spring mvc注解，这无疑会给广大Spring用户带来不便。于是Spring Cloud又对Feign进行了封装，使其方便集成到Spring项目中，并添加了对Spring mvc注解的支持，以及简化与负载均衡、服务注册发现、断路器等组件的集成，所以集成之后又叫Spring Cloud Feign</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/shanhm1991/spring-feign">https://github.com/shanhm1991/spring-feign</a><br>
+<p><a href="https://github.com/shanhm1991/spring-feign" target="_blank" rel="noopener">https://github.com/shanhm1991/spring-feign</a><br>
       
     </div>
 	
@@ -194,7 +196,7 @@
       
         <p>根据设计文档中的描述，这里对一些常见的使用场景进行示例说明</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/shanhm1991/spring-fom-demo">https://github.com/shanhm1991/spring-fom-demo</a><br>
+<p><a href="https://github.com/shanhm1991/spring-fom-demo" target="_blank" rel="noopener">https://github.com/shanhm1991/spring-fom-demo</a><br>
       
     </div>
 	
@@ -249,7 +251,7 @@
         <p>写这个工具最开始只是为了解决各种离线数据文件的处理，其中涉及比较多的任务处理。当时刚进入公司参与第一个项目，但是意识到公司的产品业务基本上都是围绕着数据做一些信息挖掘，尤其是离线数据，所以后续应该还会有很多各种各样的任务式场景。后来参与的各种项目也确实印证了自己的想法，所以确实能在一些项目中发挥作用，提高工作中的开发效率和质量，以及运维的能力。</p>
 <p>目标是实现一个轻量级的通用任务管理框架，主要针对的是定时任务。在功能上除了能支持常见的场景外，希望也能支持一定的实时监控管理，而在结构设计上要有足够的扩展性以方便进行定制，同时在使用方式上要简洁清晰，对原代码尽量少的侵入。由于当时是设计用来处理文件的，又是基于spring容器管理的，所以取名为spring-fom。</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/shanhm1991/spring-fom">https://github.com/shanhm1991/spring-fom</a></p>
+<p><a href="https://github.com/shanhm1991/spring-fom" target="_blank" rel="noopener">https://github.com/shanhm1991/spring-fom</a></p>
 </blockquote>
       
     </div>
@@ -308,7 +310,7 @@
 <li>日志文件支持多种格式，如XML、YAML、JSON、SQL等；</li>
 <li>支持回滚功能，可以按时间、数量、标签回滚变化；</li>
 </ul>
-<p>官网文档：<a target="_blank" rel="noopener" href="https://docs.liquibase.com/home.html">https://docs.liquibase.com/home.html</a><br>
+<p>官网文档：<a href="https://docs.liquibase.com/home.html" target="_blank" rel="noopener">https://docs.liquibase.com/home.html</a><br>
       
     </div>
 	
@@ -361,7 +363,7 @@
     <div class="e-content entry" itemprop="articleBody">
       
         <p>smart-doc是一款支持Java Rest Api和Apache Dubbo Rpc接口文档生成的工具，官方文档已经介绍得很好，就不过多赘述了。相比swagger基于注解生成接口文档，它基于注释来生成，将代码无侵入这一目标进行的更加彻底，生成的接口文档画风也非常简单干净，而且支持JSR-303规范，可以解析Validation API相关的参数校验。这里记录一下在springboot应用中通过maven插件来生成smart接口文档的具体实践。</p>
-<p>官网文档：<a target="_blank" rel="noopener" href="https://smart-doc-group.github.io/#/zh-cn/?id=smart-doc">https://smart-doc-group.github.io/#/zh-cn/?id=smart-doc</a><br>
+<p>官网文档：<a href="https://smart-doc-group.github.io/#/zh-cn/?id=smart-doc" target="_blank" rel="noopener">https://smart-doc-group.github.io/#/zh-cn/?id=smart-doc</a><br>
       
     </div>
 	
@@ -832,13 +834,6 @@ $(document).ready(function(){
 
 
 
-
-  
-  <div class="widget tag">
-    <h3 class="title">Archives</h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">2022-04</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">2021-08</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">2021-05</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">2021-03</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">2020-01</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">2019-11</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">2019-05</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2019-02</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">2018-10</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">2018-07</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">2018-04</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">2017-09</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">2017-06</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017-03</a><span class="archive-list-count">11</span></li></ul>
-  </div>
-
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -885,6 +880,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

@@ -35,7 +35,7 @@
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -51,6 +51,8 @@
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -112,7 +114,7 @@
       
     <div class="e-content entry" itemprop="articleBody">
       
-        <p>在面向对象的设计中，类的关系涉及依赖、关联、聚合、组合和泛化这五种关系，耦合程度依次递增。<br><span id="more"></span></p>
+        <p>在面向对象的设计中，类的关系涉及依赖、关联、聚合、组合和泛化这五种关系，耦合程度依次递增。<br><a id="more"></a></p>
 <h3 id="依赖-Dependency"><a href="#依赖-Dependency" class="headerlink" title="依赖 Dependency"></a>依赖 Dependency</h3><p>依赖是五种关系中耦合最小的一种，类A为了完成某个功能而引用了类B，则称类A依赖类B。在代码中主要体现为类A的某个成员方法的返回值、形参、局部变量或静态方法的调用。</p>
 <p>比如学生与电脑的关系：</p>
 <p><img src="/img/20180701/20180701.1.jpg" alt=""> </p>
@@ -222,14 +224,12 @@ $(document).ready(function(){
 <div class="widget catlog">
 <h3 class="title">Catlog</h3>
 <ul class="entry_catlog">
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96-Dependency"><span class="toc-text">依赖 Dependency</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E8%81%94-Association"><span class="toc-text">关联 Association</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E5%90%88-Aggregation"><span class="toc-text">聚合 Aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%90%88-Composition"><span class="toc-text">组合 Composition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%9B%E5%8C%96-Generalization"><span class="toc-text">泛化 Generalization</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖-Dependency"><span class="toc-text">依赖 Dependency</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联-Association"><span class="toc-text">关联 Association</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚合-Aggregation"><span class="toc-text">聚合 Aggregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合-Composition"><span class="toc-text">组合 Composition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#泛化-Generalization"><span class="toc-text">泛化 Generalization</span></a></li></ol>
 </div>
 
 
 
 
-
-  
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -276,6 +276,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

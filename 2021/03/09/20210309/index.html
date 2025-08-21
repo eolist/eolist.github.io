@@ -39,7 +39,7 @@ I/O总线：低速I/O设备之间互相连接的总线；">
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -55,6 +55,8 @@ I/O总线：低速I/O设备之间互相连接的总线；">
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -117,7 +119,7 @@ I/O总线：低速I/O设备之间互相连接的总线；">
 <li>系统总线：CPU同计算机的其他高速功能部件，如存储器、通道等互相连接的总线，称为系统总线；</li>
 <li>I/O总线：低速I/O设备之间互相连接的总线；</li>
 </ul>
-<span id="more"></span>
+<a id="more"></a>
 <h3 id="1-总线连接方式"><a href="#1-总线连接方式" class="headerlink" title="1. 总线连接方式"></a>1. 总线连接方式</h3><p>计算机的用途很大程度上取决于它所能连接的外围设备的范围，但外围设备种类多，速度差异大，不可能简单地把外围设备直接连接到CPU上，因此需要一种方法来将它们连接起来并一起工作。这个工作由适配器来完成，通常称为接口。</p>
 <h4 id="1-1-单总线结构"><a href="#1-1-单总线结构" class="headerlink" title="1.1. 单总线结构"></a>1.1. 单总线结构</h4><p>单总线结构中，要求连接到总线上的逻辑部件必须高速运行，以便在某些设备需要使用总线时，能迅速获得总线控制权；而当不再使用总线时，能迅速放弃总线控制权。否则，由于一条总线由多功能部件共用，可能导致很大的延迟。</p>
 <p><img src="/img/20180202/20180202.1.jpg" alt=""> </p>
@@ -249,14 +251,12 @@ $(document).ready(function(){
 <div class="widget catlog">
 <h3 class="title">Catlog</h3>
 <ul class="entry_catlog">
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%80%BB%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="toc-text">1. 总线连接方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%8D%95%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-text">1.1. 单总线结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E5%A4%9A%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-text">1.2. 多总线结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%80%BB%E7%BA%BF%E4%BB%B2%E8%A3%81"><span class="toc-text">2. 总线仲裁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BB%8F%E5%85%B8%E7%9A%84PCI%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-text">3. 经典的PCI总线结构</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-总线连接方式"><span class="toc-text">1. 总线连接方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-单总线结构"><span class="toc-text">1.1. 单总线结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-多总线结构"><span class="toc-text">1.2. 多总线结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-总线仲裁"><span class="toc-text">2. 总线仲裁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-经典的PCI总线结构"><span class="toc-text">3. 经典的PCI总线结构</span></a></li></ol>
 </div>
 
 
 
 
-
-  
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -303,6 +303,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

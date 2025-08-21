@@ -33,7 +33,7 @@
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -49,6 +49,8 @@
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -86,7 +88,7 @@
     <div class="e-content entry" itemprop="articleBody">
       
         <p>前面整理线程池时说过<code>Executor</code>是执行任务的抽象，而<code>Runnable</code>是任务的抽象。不过，线程池在实际提交任务时，会先将任务包装成一个<code>FutureTask</code>，以实现<code>Future</code>的语义，即<font color="#E51508">异步获取任务结果的能力</font>。<code>FutureTask</code>内部实际依赖的是一个<code>Callable</code>，并将任务的执行过程和结果获取委托给它，如果提交的是<code>Runnable</code>，那么也可以通过适配器<code>RunnableAdapter&lt;V&gt;</code>将其适配成一个<code>Callable</code></p>
-<figure class="highlight java"><figcaption><span>:java.util.concurrent.Executors</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; Callable&lt;T&gt; <span class="title function_">callable</span><span class="params">(Runnable task, T result)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (task == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RunnableAdapter</span>&lt;T&gt;(task, result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">RunnableAdapter</span>&lt;T&gt; <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">final</span> Runnable task;</span><br><span class="line">    <span class="keyword">final</span> T result;</span><br><span class="line">    RunnableAdapter(Runnable task, T result) &#123;</span><br><span class="line">        <span class="built_in">this</span>.task = task;</span><br><span class="line">        <span class="built_in">this</span>.result = result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">call</span><span class="params">()</span> &#123;</span><br><span class="line">        task.run();</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span class="caption">java.util.concurrent.Executors</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Callable&lt;T&gt; <span class="title">callable</span><span class="params">(Runnable task, T result)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (task == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> RunnableAdapter&lt;T&gt;(task, result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableAdapter</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Runnable task;</span><br><span class="line">    <span class="keyword">final</span> T result;</span><br><span class="line">    RunnableAdapter(Runnable task, T result) &#123;</span><br><span class="line">        <span class="keyword">this</span>.task = task;</span><br><span class="line">        <span class="keyword">this</span>.result = result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">call</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        task.run();</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>相关类图可以如下所示：</p>
 <p><img src="/img/20180405/20180405.1.jpg" alt=""><br>
       
@@ -141,7 +143,7 @@
     <div class="e-content entry" itemprop="articleBody">
       
         <p><code>Executor</code>是java中任务执行的主要抽象，虽然它是一个简单的接口，但却为灵活而强大的异步任务执行框架提供了基础，它提供了一种标准的方法将任务的提交过程与执行过程解耦开来。</p>
-<figure class="highlight java"><figcaption><span>:java.util.concurrent.Executor</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Executor</span>&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(Runnable command)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span class="caption">java.util.concurrent.Executor</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Executor</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">excute</span><span class="params">(Runnable command)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 	
@@ -829,13 +831,6 @@ $(document).ready(function(){
 
 
 
-
-  
-  <div class="widget tag">
-    <h3 class="title">Archives</h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">2022-04</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">2021-08</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">2021-05</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">2021-03</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">2020-01</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">2019-11</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">2019-05</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2019-02</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">2018-10</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">2018-07</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">2018-04</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">2017-09</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">2017-06</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017-03</a><span class="archive-list-count">11</span></li></ul>
-  </div>
-
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -882,6 +877,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

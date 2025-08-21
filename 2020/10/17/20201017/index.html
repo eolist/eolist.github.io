@@ -35,7 +35,7 @@
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -51,6 +51,8 @@
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -86,7 +88,7 @@
 
    <span style="line-height:35px; height:35px; ">  </span>
 
-   <font style="color: #999;"> words: 2.4k  &nbsp;&nbsp; views: <span id="busuanzi_value_page_pv"></span> &nbsp;&nbsp; time: 9min</font>
+   <font style="color: #999;"> words: 2.5k  &nbsp;&nbsp; views: <span id="busuanzi_value_page_pv"></span> &nbsp;&nbsp; time: 9min</font>
    
    
   
@@ -107,12 +109,12 @@
       
     <div class="e-content entry" itemprop="articleBody">
       
-        <p>Linux系统服务也称为守护程序，是在Linux启动时自动加载，并在Linux退出时自动停止的系统任务。在早期版本中，linux对服务的操作是通过service来完成的，如果要创建自定义的服务则需要较为复杂的操作，而在新的Linux发行版中，Systemd基本已经成为了服务管理的标配。<br><span id="more"></span></p>
+        <p>Linux系统服务也称为守护程序，是在Linux启动时自动加载，并在Linux退出时自动停止的系统任务。在早期版本中，linux对服务的操作是通过service来完成的，如果要创建自定义的服务则需要较为复杂的操作，而在新的Linux发行版中，Systemd基本已经成为了服务管理的标配。<br><a id="more"></a></p>
 <h3 id="init进程-amp-service命令"><a href="#init进程-amp-service命令" class="headerlink" title="init进程 &amp; service命令"></a>init进程 &amp; service命令</h3><p>当内核获得主机的控制权之后在用户空间第一个要启动的就是init进程。它是一个守护进程，会一直运行到系统关闭，也是其它所有进程直接或间接的祖先，并自动监护所有孤儿进程。</p>
 <p>内核按照硬编码的文件名启动它，如果不能启动将导致内核崩溃。init的进程PID通常是1，在系统启动和关闭时，init会启动rc脚本来保障基本功能，比如挂载和卸载文件系统，以及启动守护进程。某些init会将服务管理器包含在进程中，也就是对已启动进程的进行主动控制，称为进程监控。可以监测崩溃的进程并适时重启，这些元素加起来就成了init系统。这些服务的管理脚本放在目录/etc/init.d下面，所以使用init启动一个服务，可以这样做：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/nginx start</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;etc&#x2F;init.d&#x2F;nginx start</span><br></pre></td></tr></table></figure>
 <p>service是init系统下进行服务管理的命令，其本身是一个shell脚本，它在/etc/init.d/目录查找指定的服务脚本，然后调用该服务脚本来完成任务</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">service xxx start    #启动服务</span><br><span class="line">service xxx stop     #停止服务</span><br><span class="line">service xxx restart  #重启服务</span><br><span class="line">service xxx status   #查看状态服务</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">service xxx start    #启动服务</span><br><span class="line">service xxx stop     #停止服务</span><br><span class="line">service xxx restart  #重启服务</span><br><span class="line">service xxx status   #查看状态服务</span><br></pre></td></tr></table></figure>
 <h3 id="systemd服务-amp-systemctl命令"><a href="#systemd服务-amp-systemctl命令" class="headerlink" title="systemd服务 &amp; systemctl命令"></a>systemd服务 &amp; systemctl命令</h3><p>init进程的缺点：</p>
 <ul>
 <li>启动时间长，init进程是串行启动，只有前一个进程启动完，才会启动下一个进程。</li>
@@ -120,15 +122,15 @@
 </ul>
 <p>Systemd就是为了解决这些问题而诞生的，它的设计目标是，为系统的启动和管理提供一套完整的解决方案。</p>
 <p>systemctl是systemd系统下的服务管理命令，它包含的功能很多</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">systemctl status         #显示系统状态</span><br><span class="line">systemctl start [单元]    #立即激活单元：</span><br><span class="line">systemctl stop [单元]     #立即停止单元</span><br><span class="line">systemctl restart [单元]  #重启单元</span><br><span class="line">systemctl enable [单元]   #开机自动激活单元</span><br><span class="line">systemctl disable [单元]  #取消开机自动激活单元</span><br><span class="line">systemctl daemon-reload  #重新载入systemd，扫描新的或有变动的单元</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">systemctl status         #显示系统状态</span><br><span class="line">systemctl start [单元]    #立即激活单元：</span><br><span class="line">systemctl stop [单元]     #立即停止单元</span><br><span class="line">systemctl restart [单元]  #重启单元</span><br><span class="line">systemctl enable [单元]   #开机自动激活单元</span><br><span class="line">systemctl disable [单元]  #取消开机自动激活单元</span><br><span class="line">systemctl daemon-reload  #重新载入systemd，扫描新的或有变动的单元</span><br></pre></td></tr></table></figure>
 <h3 id="systemd设置开机自启"><a href="#systemd设置开机自启" class="headerlink" title="systemd设置开机自启"></a>systemd设置开机自启</h3><p>通过systemd设置服务开机自启，只需要添加一个.service描述文件就行，如果不确定文件存放位置，可以查看一下已有的服务配置文件，如下</p>
 <p><img src="/img/20201017/20201017.0.jpg" alt=""> </p>
 <p>具体输出内容：</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Loaded：  配置文件的位置，是否设为开机启动</span><br><span class="line">Active：  当前状态，是否正在运行</span><br><span class="line">  Docs:   文档地址</span><br><span class="line">Main PID：主进程ID</span><br><span class="line">CGroup块：所有子进程</span><br><span class="line">最下面为应用日志</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Loaded：  配置文件的位置，是否设为开机启动</span><br><span class="line">Active：  当前状态，是否正在运行</span><br><span class="line">  Docs:   文档地址</span><br><span class="line">Main PID：主进程ID</span><br><span class="line">CGroup块：所有子进程</span><br><span class="line">最下面为应用日志</span><br></pre></td></tr></table></figure>
 <p>可以对配置文件进行修改，但是修改之后需要重新加载才能生效</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart name</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart name</span><br></pre></td></tr></table></figure>
 <h3 id="service配置"><a href="#service配置" class="headerlink" title="service配置"></a>service配置</h3><p>下面以sshd.service文件为例，它的作用是启动一个SSH服务，供用户以SSH方式进行登录</p>
-<figure class="highlight txt"><figcaption><span>:systemctl cat sshd.service</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=OpenSSH server daemon</span><br><span class="line">Documentation=man:sshd(8) man:sshd_config(5)</span><br><span class="line">After=network.target sshd-keygen.service</span><br><span class="line">Wants=sshd-keygen.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">EnvironmentFile=/etc/sysconfig/sshd</span><br><span class="line">ExecStart=/usr/sbin/sshd -D $OPTIONS</span><br><span class="line">ExecReload=/bin/kill -HUP $MAINPID</span><br><span class="line">Type=simple</span><br><span class="line">KillMode=process</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=42s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span class="caption">systemctl cat sshd.service</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;OpenSSH server daemon</span><br><span class="line">Documentation&#x3D;man:sshd(8) man:sshd_config(5)</span><br><span class="line">After&#x3D;network.target sshd-keygen.service</span><br><span class="line">Wants&#x3D;sshd-keygen.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">EnvironmentFile&#x3D;&#x2F;etc&#x2F;sysconfig&#x2F;sshd</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;sbin&#x2F;sshd -D $OPTIONS</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -HUP $MAINPID</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">KillMode&#x3D;process</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">RestartSec&#x3D;42s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
 <ul>
 <li>[Unit] 定义启动顺序及依赖</li>
 </ul>
@@ -141,42 +143,42 @@
 </ul>
 <p><u>EnvironmentFile字段：</u> 指定当前服务的环境变量文件，文件内部为key=value键值对</p>
 <p><u>ExecStart字段：</u> 定义启动进程时执行的命令，示例中，命令为<code>/usr/sbin/sshd -D $OPTIONS</code>，其中<code>$OPTIONS</code>就来自环境变量文件。与之作用相似的，还有如下这些字段</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ExecReload字段：  重启服务时执行的命令</span><br><span class="line">ExecStop字段：    停止服务时执行的命令</span><br><span class="line">ExecStartPre字段：启动服务之前执行的命令</span><br><span class="line">ExecStartPost字段：启动服务之后执行的命令</span><br><span class="line">ExecStopPost字段：停止服务之后执行的命令</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ExecReload字段：  重启服务时执行的命令</span><br><span class="line">ExecStop字段：    停止服务时执行的命令</span><br><span class="line">ExecStartPre字段：启动服务之前执行的命令</span><br><span class="line">ExecStartPost字段：启动服务之后执行的命令</span><br><span class="line">ExecStopPost字段：停止服务之后执行的命令</span><br></pre></td></tr></table></figure>
 <p>所有的启动设置之前，都可以加上一个连词号（-），表示”抑制错误”，即发生错误的时候，不影响其他命令的执行。<br>比如，EnvironmentFile=-/etc/sysconfig/sshd，就表示即使/etc/sysconfig/sshd文件不存在，也不会抛出错误</p>
 <p><u>Type字段：</u> 定义启动类型，可以有如下值</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">simple：（默认值）ExecStart字段启动的进程为主进程</span><br><span class="line">forking：ExecStart字段将以fork()方式启动，此时父进程将会退出，子进程将成为主进程</span><br><span class="line">oneshot：类似于simple，但只执行一次，Systemd 会等它执行完，才启动其他服务</span><br><span class="line">dbus：   类似于simple，但会等待 D-Bus 信号后启动</span><br><span class="line">notify： 类似于simple，启动结束后会发出通知信号，然后 Systemd 再启动其他服务</span><br><span class="line">idle：   类似于simple，但是要等到其他任务都执行完，才会启动该服务。一种使用场合是为让该服务的输出，不与其他服务的输出相混合</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">simple：（默认值）ExecStart字段启动的进程为主进程</span><br><span class="line">forking：ExecStart字段将以fork()方式启动，此时父进程将会退出，子进程将成为主进程</span><br><span class="line">oneshot：类似于simple，但只执行一次，Systemd 会等它执行完，才启动其他服务</span><br><span class="line">dbus：   类似于simple，但会等待 D-Bus 信号后启动</span><br><span class="line">notify： 类似于simple，启动结束后会发出通知信号，然后 Systemd 再启动其他服务</span><br><span class="line">idle：   类似于simple，但是要等到其他任务都执行完，才会启动该服务。一种使用场合是为让该服务的输出，不与其他服务的输出相混合</span><br></pre></td></tr></table></figure>
 <p>以下是一个oneshot的例子，笔记本电脑启动时，要把触摸板关掉，配置文件可以这样写，表明这个服务只要运行一次就够了，不需要长期运行。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Switch-off Touchpad</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/usr/bin/touchpad-off</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Switch-off Touchpad</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;oneshot</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;touchpad-off</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
 <p>如果关闭以后，将来某个时候还想打开，配置文件可以修改如下，表示进程退出以后，服务仍然保持执行。</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Switch-off Touchpad</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/usr/bin/touchpad-off start</span><br><span class="line">ExecStop=/usr/bin/touchpad-off stop</span><br><span class="line">RemainAfterExit=yes</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Switch-off Touchpad</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;oneshot</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;touchpad-off start</span><br><span class="line">ExecStop&#x3D;&#x2F;usr&#x2F;bin&#x2F;touchpad-off stop</span><br><span class="line">RemainAfterExit&#x3D;yes</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
 <p><u>KillMode字段：</u> 定义Systemd如何停止sshd服务，可以有如下值</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">control-group：（默认值）当前控制组里面的所有子进程，都会被杀掉</span><br><span class="line">process：       只杀主进程</span><br><span class="line">mixed：         主进程将收到 SIGTERM 信号，子进程收到 SIGKILL 信号</span><br><span class="line">none：          没有进程会被杀掉，只是执行服务的 stop 命令。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">control-group：（默认值）当前控制组里面的所有子进程，都会被杀掉</span><br><span class="line">process：       只杀主进程</span><br><span class="line">mixed：         主进程将收到 SIGTERM 信号，子进程收到 SIGKILL 信号</span><br><span class="line">none：          没有进程会被杀掉，只是执行服务的 stop 命令。</span><br></pre></td></tr></table></figure>
 <p>示例中，将KillMode设为process，表示只停止主进程，不停止任何sshd子进程，即子进程打开的SSH session仍然保持连接。这个设置不太常见，但对sshd很重要，否则你停止服务的时候，会连自己打开的SSH session一起杀掉。</p>
 <p><u>Restart字段：</u> 定义了sshd退出后，Systemd的重启方式，可以有如下值</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">no：        （默认值）退出后不会重启</span><br><span class="line">on-success： 只有正常退出时（退出状态码为0），才会重启</span><br><span class="line">on-failure： 非正常退出时（退出状态码非0），包括被信号终止和超时，才会重启</span><br><span class="line">on-abnormal：只有被信号终止和超时，才会重启</span><br><span class="line">on-abort：   只有在收到没有捕捉到的信号终止时，才会重启</span><br><span class="line">on-watchdog：超时退出，才会重启</span><br><span class="line">always：     不管是什么退出原因，总是重启</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">no：        （默认值）退出后不会重启</span><br><span class="line">on-success： 只有正常退出时（退出状态码为0），才会重启</span><br><span class="line">on-failure： 非正常退出时（退出状态码非0），包括被信号终止和超时，才会重启</span><br><span class="line">on-abnormal：只有被信号终止和超时，才会重启</span><br><span class="line">on-abort：   只有在收到没有捕捉到的信号终止时，才会重启</span><br><span class="line">on-watchdog：超时退出，才会重启</span><br><span class="line">always：     不管是什么退出原因，总是重启</span><br></pre></td></tr></table></figure>
 <p><u>RestartSec字段：</u> 表示Systemd重启服务之前，需要等待的秒数，示例中设为等待42秒</p>
 <ul>
 <li>[Install] </li>
 </ul>
 <p><u>WantedBy字段：</u> 表示该服务所在的Target，Target的含义是服务组，表示一组服务。这个设置非常重要，因为执行systemctl enable sshd.service命令时，sshd.service的一个符号链接，就会放在/etc/systemd/system目录下面的multi-user.target.wants子目录之中。</p>
 <p>可以通过命令查看systemd默认启动的组，也就是target</p>
-<figure class="highlight txt"><figcaption><span>:systemctl get-default</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graohical.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span class="caption">systemctl get-default</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graohical.target</span><br></pre></td></tr></table></figure>
 <p>上面的结果表示，默认的启动Target 是graohical.target。在这个组里的所有服务，都将开机启动，<font color="#E51508">这就是为什么systemctl enable命令能设置开机启动的原因。</font></p>
-<p>在target组之间也可以设置依赖关系，比如常用的Target有两个：multi-user.target表示多用户命令行状态；graphical.target表示图形用户状态，它依赖于multi-user.target。官方文档有一张非常清晰的[<a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/latest/bootup.html#System%20Manager%20Bootup">Target依赖关系图</a>]</p>
+<p>在target组之间也可以设置依赖关系，比如常用的Target有两个：multi-user.target表示多用户命令行状态；graphical.target表示图形用户状态，它依赖于multi-user.target。官方文档有一张非常清晰的[<a href="https://www.freedesktop.org/software/systemd/man/latest/bootup.html#System%20Manager%20Bootup" target="_blank" rel="noopener">Target依赖关系图</a>]</p>
 <p>可以通过list-dependencies命令查看Target的依赖关系和启动的服务</p>
 <p><img src="/img/20201017/20201017.1.jpg" alt=""> </p>
 <p>也可以通过isolate命令来切换当前Target，比如下面这样切换到关机状态</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl isolate shutdown.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl isolate shutdown.target</span><br></pre></td></tr></table></figure>
 <h3 id="Target配置"><a href="#Target配置" class="headerlink" title="Target配置"></a>Target配置</h3><p>以multi-user.target配置文件为例</p>
-<figure class="highlight txt"><figcaption><span>:systemctl cat multi-user.target</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Multi-User System</span><br><span class="line">Documentation=man:systemd.special(7)</span><br><span class="line">Requires=basic.target</span><br><span class="line">Conflicts=rescue.service rescue.target</span><br><span class="line">After=basic.target rescue.service rescue.target</span><br><span class="line">AllowIsolate=yes</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span class="caption">systemctl cat multi-user.target</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Multi-User System</span><br><span class="line">Documentation&#x3D;man:systemd.special(7)</span><br><span class="line">Requires&#x3D;basic.target</span><br><span class="line">Conflicts&#x3D;rescue.service rescue.target</span><br><span class="line">After&#x3D;basic.target rescue.service rescue.target</span><br><span class="line">AllowIsolate&#x3D;yes</span><br></pre></td></tr></table></figure>
 <p>Requires字段：要求basic.target一起运行</p>
 <p>Conflicts字段：如果rescue.service或rescue.target正在运行，则multi-user.target就不能运行，反之亦然。</p>
 <p>After：表示multi-user.target在basic.target 、 rescue.service、 rescue.target之后启动，如果它们有启动的话。</p>
 <p>AllowIsolate：允许使用systemctl isolate命令切换到multi-user.target。</p>
 <p><br><strong>参考</strong></p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html">https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_11580232/3218352">https://blog.51cto.com/u_11580232/3218352</a></li>
+<li><a href="https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html" target="_blank" rel="noopener">https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html</a></li>
+<li><a href="https://blog.51cto.com/u_11580232/3218352" target="_blank" rel="noopener">https://blog.51cto.com/u_11580232/3218352</a></li>
 </ol>
 
       
@@ -261,14 +263,12 @@ $(document).ready(function(){
 <div class="widget catlog">
 <h3 class="title">Catlog</h3>
 <ul class="entry_catlog">
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#init%E8%BF%9B%E7%A8%8B-amp-service%E5%91%BD%E4%BB%A4"><span class="toc-text">init进程 &amp; service命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemd%E6%9C%8D%E5%8A%A1-amp-systemctl%E5%91%BD%E4%BB%A4"><span class="toc-text">systemd服务 &amp; systemctl命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemd%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="toc-text">systemd设置开机自启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#service%E9%85%8D%E7%BD%AE"><span class="toc-text">service配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Target%E9%85%8D%E7%BD%AE"><span class="toc-text">Target配置</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#init进程-amp-service命令"><span class="toc-text">init进程 &amp; service命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemd服务-amp-systemctl命令"><span class="toc-text">systemd服务 &amp; systemctl命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemd设置开机自启"><span class="toc-text">systemd设置开机自启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#service配置"><span class="toc-text">service配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Target配置"><span class="toc-text">Target配置</span></a></li></ol>
 </div>
 
 
 
 
-
-  
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -315,6 +315,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

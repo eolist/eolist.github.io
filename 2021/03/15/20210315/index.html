@@ -35,7 +35,7 @@
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -51,6 +51,8 @@
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -107,7 +109,7 @@
       
     <div class="e-content entry" itemprop="articleBody">
       
-        <p>由于物理规律对半导体器件的限制，传统单处理机通过提高主频提升性能的方法受到制约，不得不转向并行处理体系结构。下面主要介绍一些并行性相关的概念，然后分别讨论多线程和超线程处理机、多处理机和多核处理机。<br><span id="more"></span></p>
+        <p>由于物理规律对半导体器件的限制，传统单处理机通过提高主频提升性能的方法受到制约，不得不转向并行处理体系结构。下面主要介绍一些并行性相关的概念，然后分别讨论多线程和超线程处理机、多处理机和多核处理机。<br><a id="more"></a></p>
 <h3 id="1-并行处理机的组织与结构"><a href="#1-并行处理机的组织与结构" class="headerlink" title="1. 并行处理机的组织与结构"></a>1. 并行处理机的组织与结构</h3><h4 id="1-1-超标量处理机与超长指令字处理机"><a href="#1-1-超标量处理机与超长指令字处理机" class="headerlink" title="1.1. 超标量处理机与超长指令字处理机"></a>1.1. 超标量处理机与超长指令字处理机</h4><p>在计算机系统的最底层，流水线技术将时间并行性引入处理机，而多发射处理机则把空间并行性引入处理机。</p>
 <p><font style="color:#E51508;">超标量</font>设计采用多发射技术，在处理机内部设置多条并行执行的指令流水线，通过在每个时钟周期内向执行单元发射多条指令实现指令级并行。<font style="color:#E51508;">超长指令字</font>技术则由编译器在编译时找出指令间潜在的并行性，进行适当的调度安排，把多个能并行执行的操作组合在一起，控制处理机中的多个相互独立的功能部件，相当于同时执行多条指令，从而提高处理机的并行性。</p>
 <h4 id="1-2-多处理机与多计算机"><a href="#1-2-多处理机与多计算机" class="headerlink" title="1.2. 多处理机与多计算机"></a>1.2. 多处理机与多计算机</h4><p>在单个处理机的性能一定的情况下，进一步提高计算机系统处理能力的简单办法就是让多个处理机协同工作，称为多处理机系统。</p>
@@ -258,14 +260,14 @@
 <p>由于中间的 6bits 决定了 Cache Line 所在的组，所以对于一段连续的内存来说，每隔 4096B 的内存会被放在同一个组内，导致缓存冲突。</p>
 <p>了解这些细节，有利于我们知道在什么情况下可以避免冲突问题，比如下面摘抄的示例：</p>
 <p>看一下多核下的性能问题，两个线程分别操作同一个数组中的两个不同的元素（无需加锁），各自循环1000万次，做加法操作，其中对于p2指针，取两种情况：p[1] 和 p[30]，理论上来说，无论访问哪两个数组元素，都应该是一样的执行时间</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">fn</span> <span class="params">(<span class="type">int</span>* data)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>*<span class="number">1024</span>*<span class="number">1024</span>; ++i)</span><br><span class="line">        *data += rand();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> p[<span class="number">32</span>];</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> *p1 = &amp;p[<span class="number">0</span>];</span><br><span class="line"><span class="type">int</span> *p2 = &amp;p[<span class="number">1</span>]; <span class="comment">// 或者 int *p2 = &amp;p[30];</span></span><br><span class="line"> </span><br><span class="line">thread <span class="title function_">t1</span><span class="params">(fn, p1)</span>;</span><br><span class="line">thread <span class="title function_">t2</span><span class="params">(fn, p2)</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fn</span> <span class="params">(<span class="keyword">int</span>* data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>*<span class="number">1024</span>*<span class="number">1024</span>; ++i)</span><br><span class="line">        *data += rand();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> p[<span class="number">32</span>];</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> *p1 = &amp;p[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">int</span> *p2 = &amp;p[<span class="number">1</span>]; <span class="comment">// 或者 int *p2 = &amp;p[30];</span></span><br><span class="line"> </span><br><span class="line"><span class="function">thread <span class="title">t1</span><span class="params">(fn, p1)</span></span>;</span><br><span class="line"><span class="function">thread <span class="title">t2</span><span class="params">(fn, p2)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>然而，实际结果是：<br>对于 p[0] 和 p[1] ：560ms<br>对于 p[0] 和 p[30]：104ms    </p>
 <p>这是因为 p[0] 和 p[1] 在同一条 Cache Line 上，而 p[0] 和 p[30] 则不可能在同一条Cache Line 上 ，CPU 的缓存最小的更新单位是 Cache Line，所以，这导致虽然两个线程在写不同的数据，但是因为这两个数据在同一条 Cache Line 上，就会导致缓存需要不断进在两个 CPU 的 L1/L2 中进行同步，从而导致了 5 倍的时间差异。</p>
 <p><font style="color:gray;">同样的逻辑，使用Java在自己电脑上并没能复现这样的效果，而是两者执行下来差不多，这个可能跟具体的机子以及编译执行时的优化有关，不过能理解和体会示例中的意思就可以了</font>。</p>
 <p><br><strong>参考：</strong></p>
 <ol>
 <li>《计算机组成原理》</li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/songguangfan/article/details/115479861">https://blog.csdn.net/songguangfan/article/details/115479861</a></li>
+<li><a href="https://blog.csdn.net/songguangfan/article/details/115479861" target="_blank" rel="noopener">https://blog.csdn.net/songguangfan/article/details/115479861</a></li>
 </ol>
 
       
@@ -350,14 +352,12 @@ $(document).ready(function(){
 <div class="widget catlog">
 <h3 class="title">Catlog</h3>
 <ul class="entry_catlog">
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86%E6%9C%BA%E7%9A%84%E7%BB%84%E7%BB%87%E4%B8%8E%E7%BB%93%E6%9E%84"><span class="toc-text">1. 并行处理机的组织与结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E8%B6%85%E6%A0%87%E9%87%8F%E5%A4%84%E7%90%86%E6%9C%BA%E4%B8%8E%E8%B6%85%E9%95%BF%E6%8C%87%E4%BB%A4%E5%AD%97%E5%A4%84%E7%90%86%E6%9C%BA"><span class="toc-text">1.1. 超标量处理机与超长指令字处理机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E5%A4%9A%E5%A4%84%E7%90%86%E6%9C%BA%E4%B8%8E%E5%A4%9A%E8%AE%A1%E7%AE%97%E6%9C%BA"><span class="toc-text">1.2. 多处理机与多计算机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86%E6%9C%BA"><span class="toc-text">1.3. 多线程处理机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E5%A4%9A%E6%A0%B8%E5%A4%84%E7%90%86%E6%9C%BA"><span class="toc-text">1.4. 多核处理机</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%BA%A7%E5%B9%B6%E8%A1%8C"><span class="toc-text">2. 指令级并行与线程级并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%9A%E6%A0%B8%E5%A4%84%E7%90%86%E6%9C%BA"><span class="toc-text">3. 多核处理机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-cache%E7%BB%84%E7%BB%87"><span class="toc-text">3.1. cache组织</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-cache%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">3.2. cache一致性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%A0%B8%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="toc-text">3.3. 核间通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E6%A0%B8%E9%97%B4%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="toc-text">3.4. 核间任务调度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E9%97%AE%E9%A2%98"><span class="toc-text">4. 缓存命中问题</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-并行处理机的组织与结构"><span class="toc-text">1. 并行处理机的组织与结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-超标量处理机与超长指令字处理机"><span class="toc-text">1.1. 超标量处理机与超长指令字处理机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-多处理机与多计算机"><span class="toc-text">1.2. 多处理机与多计算机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-多线程处理机"><span class="toc-text">1.3. 多线程处理机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-多核处理机"><span class="toc-text">1.4. 多核处理机</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-指令级并行与线程级并行"><span class="toc-text">2. 指令级并行与线程级并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-多核处理机"><span class="toc-text">3. 多核处理机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-cache组织"><span class="toc-text">3.1. cache组织</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-cache一致性"><span class="toc-text">3.2. cache一致性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-核间通信"><span class="toc-text">3.3. 核间通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-核间任务调度"><span class="toc-text">3.4. 核间任务调度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-缓存命中问题"><span class="toc-text">4. 缓存命中问题</span></a></li></ol>
 </div>
 
 
 
 
-
-  
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -404,6 +404,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

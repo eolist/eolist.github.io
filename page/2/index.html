@@ -33,7 +33,7 @@
 </script>
 
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
 <body>
@@ -49,6 +49,8 @@
       <li><a href="/">Home</a></li>
     
       <li><a href="/about">Abount</a></li>
+    
+      <li><a href="/books">Books</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -85,7 +87,7 @@
       
     <div class="e-content entry" itemprop="articleBody">
       
-        <p>Java’s standard for object validation最早在Java EE6中提出，作为Bean Validation 1.0(JSR-303)。它定义了一种在Java对象上执行声明性验证的方式，提供了一个运行时的数据验证框架。更多详细内容可以参考官网：<a target="_blank" rel="noopener" href="https://beanvalidation.org">https://beanvalidation.org</a></p>
+        <p>Java’s standard for object validation最早在Java EE6中提出，作为Bean Validation 1.0(JSR-303)。它定义了一种在Java对象上执行声明性验证的方式，提供了一个运行时的数据验证框架。更多详细内容可以参考官网：<a href="https://beanvalidation.org" target="_blank" rel="noopener">https://beanvalidation.org</a></p>
 <p>Bean Validationn可以让代码变得更简洁清晰，让开发人员在定义数据模型时不必考虑实现框架的限制。当然它不止提供了一些基本的constraint，也可以自定义验证规则，在实际的开发中，可以根据自己的需要组合或开发出更加合适的constraint。<br>
       
     </div>
@@ -352,8 +354,8 @@
         <p>在Java中，任务执行的主要抽象不是<code>Thread</code>，而是<code>Executor</code>，它提供了一种标准的方式将任务的提交过程与执行过程解耦开来，为灵活而强大的异步任务执行框架提供了基础，线程池<code>ThreadPoolExecutor</code>便是在此基础上实现的一套异步执行框架。</p>
 <p>Netty也在<code>Executor</code>的基础上自定义实现了一套高性能的任务执行框架，本文尝试从I/O事件执行器<code>NioEventLoopGroup</code>作为切入点对其中的部分源码做一些分析，希望能从别人的设计中汲取一些思路和启发。建议在分析Netty中的任务执行机制之前先对Java中原生的任务执行框架有所了解，可以参考笔记：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://shanhm1991.github.io/2017/03/05/20170305/">《Java并发编程实战》 任务的执行</a></li>
-<li><a target="_blank" rel="noopener" href="https://shanhm1991.github.io/2017/03/06/20170306/">《Java并发编程实战》 任务的取消</a>
+<li><a href="https://shanhm1991.github.io/2017/03/05/20170305/" target="_blank" rel="noopener">《Java并发编程实战》 任务的执行</a></li>
+<li><a href="https://shanhm1991.github.io/2017/03/06/20170306/" target="_blank" rel="noopener">《Java并发编程实战》 任务的取消</a>
       
     </div>
 	
@@ -826,13 +828,6 @@ $(document).ready(function(){
 
 
 
-
-  
-  <div class="widget tag">
-    <h3 class="title">Archives</h3>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">2022-04</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">2021-08</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">2021-05</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">2021-03</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">2020-01</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">2019-11</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">2019-05</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">2019-02</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">2018-10</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">2018-07</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">2018-04</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">2017-09</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">2017-06</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">2017-03</a><span class="archive-list-count">11</span></li></ul>
-  </div>
-
 </aside>
     <div class="clearfix"></div>
   </div>
@@ -879,6 +874,6 @@ $(document).ready(function(){
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
