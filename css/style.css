@@ -847,11 +847,11 @@ figure.highlight figcaption {
   margin-bottom: 2px;
   text-shadow: 0 0 1px #fff;
 }
-figure.highlight figcaption a {
+white-space nowrap a {
   position: absolute;
   right: 15px;
 }
-figure.highlight pre {
+pre {
   overflow-y: hidden;
 }
 overflow-x auto {
