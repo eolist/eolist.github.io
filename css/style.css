@@ -847,11 +847,11 @@ figure.highlight figcaption {
   margin-bottom: 2px;
   text-shadow: 0 0 1px #fff;
 }
-white-space nowrap a {
+figure.highlight figcaption a {
   position: absolute;
   right: 15px;
 }
-pre {
+figure.highlight pre {
   overflow-y: hidden;
 }
 overflow-x auto {
@@ -890,6 +890,7 @@ table {
 figcaption {
   padding-left: 8px;
   padding-top: 2px;
+  white-space: nowrap;
   border-bottom: 1px solid #ddd;
 }
 pre .comment,
