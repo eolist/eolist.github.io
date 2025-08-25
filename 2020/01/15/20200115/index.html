@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>任务管理工具schedule-fom 使用 | Echo</title>
+  <title>schedule-fom的使用方式 | Echo</title>
   <meta name="author" content="shanhm">
   
-  <meta name="description" content="根据设计文档中的描述，这里对一些常见的使用场景进行示例说明
+  <meta name="description" content="说明一下schedule-fom的常见使用场景和使用方式
 
-https://github.com/shanhm1991/spring-fom-demo">
+&amp;lt;dependency&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;lt;groupId&amp;gt;com.cowave.commons&amp;lt;/groupId&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;lt;artifactId&amp;gt;http-client&amp;lt;/artifactId&amp;gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;lt;version&amp;gt;2.7.3&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt;">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="任务管理工具schedule-fom 使用"/>
+  <meta property="og:title" content="schedule-fom的使用方式"/>
   <meta property="og:site_name" content="Echo"/>
 
   
@@ -74,7 +74,7 @@ https://github.com/shanhm1991/spring-fom-demo">
   
   
     <h1 class="p-name title" itemprop="headline name">
-        任务管理工具schedule-fom 使用
+        schedule-fom的使用方式
     </h1>
     
     
@@ -114,15 +114,12 @@ https://github.com/shanhm1991/spring-fom-demo">
       
     <div class="e-content entry" itemprop="articleBody">
       
-        <p>根据设计文档中的描述，这里对一些常见的使用场景进行示例说明</p>
+        <p>说明一下schedule-fom的常见使用场景和使用方式</p>
 <blockquote>
-<p><a href="https://github.com/shanhm1991/spring-fom-demo" target="_blank" rel="noopener">https://github.com/shanhm1991/spring-fom-demo</a><br><a id="more"></a></p>
+<p>&lt;dependency&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;com.cowave.commons&lt;/groupId&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;http-client&lt;/artifactId&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;2.7.3&lt;/version&gt;<br>&lt;/dependency&gt;</p>
 </blockquote>
+<a id="more"></a>
 <h3 id="1-使用方式"><a href="#1-使用方式" class="headerlink" title="1. 使用方式"></a>1. 使用方式</h3><ul>
-<li><strong>依赖</strong></li>
-</ul>
-<figure class="highlight xml"><figcaption><span class="caption">pom.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.shanhm1991<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-fom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
 <li><strong>声明：</strong>@EnableFom</li>
 </ul>
 <p>需要在spring的组件上通过<code>@EnableFom</code>进行声明，因为spring-fom 的依赖于spring应用上下文</p>
@@ -191,7 +188,7 @@ https://github.com/shanhm1991/spring-fom-demo">
 	  
 	  
 		  <a class="alignright next" href="/2020/01/13/20200113/">
-		    任务管理工具schedule-fom 设计
+		    实现一个定时任务管理schedule-fom
 		  </a>
 	  
 	  <div class="clearfix"></div>
